@@ -1,4 +1,3 @@
-
 import {
   StyleSheet,
   Text,
@@ -7,26 +6,26 @@ import {
   Button,
   ScrollView,
 } from "react-native";
-import {useState, useEffect} from "react";
+import { useState, useEffect, Key } from "react";
 import { useRoute, useNavigation } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native";
 
-export default function WorkoutScreen () {
+export default function WorkoutScreen() {
   const route = useRoute();
   const navigation = useNavigation();
   const [excersises, setExcersises] = useState<any>([])
-  
-  useEffect(() => {  
+
+  useEffect(() => {
     console.log(route);
-    setExcersises(route.params.excersises)
+    setExcersises(route.params?.exercise)
   }, [])
-  
+
   return (
     <ScrollView style={{ marginTop: 30 }}>
       <Image
         style={{ width: "100%", height: 170 }}
-        source={{ uri: route.params.image }}
+        source={{ uri: route.params?.image }}
       />
       <Ionicons
         onPress={() => navigation.goBack()}
@@ -35,14 +34,11 @@ export default function WorkoutScreen () {
         size={44}
         color="black"
       />
-      {excersises.map((item, index) =>(
-        <TouchableOpacity key={index} onPress={()=>{}}>
-          <Image style={{width:90, height:90, marginTop:15}} source={{uri:item.image}}/>
+      {excersises.map((item: { image: any; }, index: Key | null | undefined) => (
+        <TouchableOpacity key={index} onPress={() => { }}>
+          <Image style={{ width: 90, height: 90, marginTop: 15 }} source={{ uri: item.image }} />
         </TouchableOpacity>
       ))}
     </ScrollView>
   );
 };
-
- WorkoutScreen;
-
