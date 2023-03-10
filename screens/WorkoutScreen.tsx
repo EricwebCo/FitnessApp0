@@ -7,16 +7,21 @@ import {
   Button,
   ScrollView,
 } from "react-native";
-import React from "react";
-import { useRoute } from "@react-navigation/native";
-import { useNavigation } from "@react-navigation/native";
+import {useState, useEffect} from "react";
+import { useRoute, useNavigation } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
-import { Pressable } from "react-native/Libraries/Components/Pressable/Pressable";
+import { TouchableOpacity } from "react-native";
 
-const WorkoutScreen = () => {
+export default function WorkoutScreen () {
   const route = useRoute();
-  console.log(route);
   const navigation = useNavigation();
+  const [excersises, setExcersises] = useState<any>([])
+  
+  useEffect(() => {  
+    console.log(route);
+    setExcersises(route.params.excersises)
+  }, [])
+  
   return (
     <ScrollView style={{ marginTop: 30 }}>
       <Image
@@ -30,15 +35,14 @@ const WorkoutScreen = () => {
         size={44}
         color="black"
       />
-      {route.params.excersises.map((item, index) =>(
-        <Pressable key={index}>
+      {excersises.map((item, index) =>(
+        <TouchableOpacity key={index} onPress={()=>{}}>
           <Image style={{width:90, height:90, marginTop:15}} source={{uri:item.image}}/>
-        </Pressable>
+        </TouchableOpacity>
       ))}
     </ScrollView>
   );
 };
 
-export default WorkoutScreen;
+ WorkoutScreen;
 
-const styles = StyleSheet.create({});
